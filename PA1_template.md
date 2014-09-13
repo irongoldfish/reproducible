@@ -8,14 +8,6 @@ output:
 
 ```r
 #Header code, setup required libraries
-setwd("scratch/coursera//RepData_PeerAssessment1") #REMOVE NOONE CARES
-```
-
-```
-## Error: cannot change working directory
-```
-
-```r
 library(ggplot2)
 library(plyr)
 ```
@@ -23,7 +15,7 @@ library(plyr)
 ## Loading and preprocessing the data
 
 ```r
-#readin
+#read in
 activity<-read.csv("activity.csv",colClasses=c("integer","Date","integer"))
 #q1
 stepsperday<-ddply(activity, c("date"),summarise,
@@ -43,7 +35,8 @@ The mean total number of steps taken per day is 9354.2295.  The median number of
 ```r
 stepshist<-ggplot(stepsperday,aes(x=totalsteps))+geom_histogram()+
   xlab("Total number of steps")+
-  ggtitle("Histogram of total steps in one day")
+  ggtitle("Histogram of total steps in one day")+
+  theme_bw()
 print(stepshist)
 ```
 
@@ -58,7 +51,8 @@ print(stepshist)
 ```r
 dayline<-ggplot(stepsper5min,aes(x=interval,y=meansteps))+geom_line()+
   ggtitle("Average steps for each 5-min interval")+
-  ylab("Mean steps")
+  ylab("Mean steps")+
+  theme_bw()
 print(dayline)
 ```
 
@@ -69,7 +63,8 @@ Alternative daily activity pattern visualisation, raw points with a loess curve
 
 ```r
 dayraw<-ggplot(activity,aes(x=interval,y=steps))+geom_point(alpha=.1)+geom_smooth()+
-  ggtitle("Steps in each 5-min interval, raw points + loess curve")
+  ggtitle("Steps in each 5-min interval, raw points + loess curve")+
+  theme_bw()
 print(dayraw)
 ```
 
@@ -146,13 +141,14 @@ guesscheck<-ggplot(stepsperday2,aes(x=totalsteps))+
   geom_density()+
   geom_density(aes(x=guesstotalsteps,color="Imputed"))+
   ggtitle("Density plot comparing raw and NA-imputed activity datasets")+
-  xlab("total steps")
+  xlab("total steps")+
+  theme_bw()
 print(guesscheck)
 ```
 
 ![plot of chunk guesscompare](figure/guesscompare.png) 
 
-The mean and median total steps are 9354.2295 and 10395, for the NA-imputed data the mean and median are  9707.2193 and 1.0571 &times; 10<sup>4</sup>,
+The mean and median total steps are 9354.2295 and 10395, for the NA-imputed data the mean and median are  9707.2193 and 1.0571 &times; 10<sup>4</sup>.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 

@@ -7,14 +7,13 @@ output:
 
 ```{r}
 #Header code, setup required libraries
-setwd("scratch/coursera//RepData_PeerAssessment1") #REMOVE NOONE CARES
 library(ggplot2)
 library(plyr)
 ```
 
 ## Loading and preprocessing the data
 ```{r}
-#readin
+#read in
 activity<-read.csv("activity.csv",colClasses=c("integer","Date","integer"))
 #q1
 stepsperday<-ddply(activity, c("date"),summarise,
@@ -120,11 +119,11 @@ guesscheck<-ggplot(stepsperday2,aes(x=totalsteps))+
 print(guesscheck)
 ```
 
-The mean and median total steps are `r mean(stepsperday2$totalsteps,na.rm=TRUE)` and `r median(stepsperday2$totalsteps,na.rm=TRUE)`, for the NA-imputed data the mean and median are  `r mean(stepsperday2$guesstotalsteps,na.rm=TRUE)` and `r median(stepsperday2$guesstotalsteps,na.rm=TRUE)`,
+The mean and median total steps are `r mean(stepsperday2$totalsteps,na.rm=TRUE)` and `r median(stepsperday2$totalsteps,na.rm=TRUE)`, for the NA-imputed data the mean and median are  `r mean(stepsperday2$guesstotalsteps,na.rm=TRUE)` and `r median(stepsperday2$guesstotalsteps,na.rm=TRUE)`. 
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-Looks like activity is higher on the weekends, particularly in the middle of the day, although it is lower early in the morning just after wakeing.
+Looks like activity is higher on the weekends, particularly in the middle of the day, although it is lower early in the morning just after waking.
 
 ```{r weekends}
 paindays= c("Monday","Tuesday","Wednesday","Thursday","Friday")
