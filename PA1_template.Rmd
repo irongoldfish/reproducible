@@ -119,6 +119,15 @@ guesscheck<-ggplot(stepsperday2,aes(x=totalsteps))+
 print(guesscheck)
 ```
 
+Here's the histogram for my fellow pedants:
+```{r imputedhist}
+forpeoplewhoreallywanttoseeahistogram<-ggplot(stepsperday2,aes(x=guesstotalsteps))+
+    geom_histogram()+
+  ggtitle("Histogram of total number of steps per day after missing values imputed")+
+    theme_bw()
+print(forpeoplewhoreallywanttoseeahistogram)
+```
+
 The mean and median total steps are `r mean(stepsperday2$totalsteps,na.rm=TRUE)` and `r median(stepsperday2$totalsteps,na.rm=TRUE)`, for the NA-imputed data the mean and median are  `r mean(stepsperday2$guesstotalsteps,na.rm=TRUE)` and `r median(stepsperday2$guesstotalsteps,na.rm=TRUE)`. 
 
 ## Are there differences in activity patterns between weekdays and weekends?
@@ -134,7 +143,8 @@ stepsperinterval.weekdaysplit<-ddply(activity_guessNA, c("interval","weekday"),s
                     meansteps = mean(steps,na.rm=TRUE)
 )
 
-weekdayplot<-ggplot(stepsperinterval.weekdaysplit,aes(x=interval,y=meansteps,color=weekday))+
+weekdayplot<-ggplot(stepsperinterval.weekdaysplit,aes(x=interval,y=meansteps))+
+  facet_wrap(~weekday,nrow=2,ncol=1)+
   geom_line()+
   theme_bw()+
   ggtitle("Mean steps over each 5min interval split by weekday/weekend")+
@@ -142,4 +152,3 @@ weekdayplot<-ggplot(stepsperinterval.weekdaysplit,aes(x=interval,y=meansteps,col
   xlab("Interval number")
 print(weekdayplot)
 ```
-
